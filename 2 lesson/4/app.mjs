@@ -1,64 +1,48 @@
 // server.mjs
 import { createServer } from 'node:http'
-import fs from 'fs'
-import { appendFile, readFile, writeFile, unlink } from 'fs/promises'
+import { readFile } from 'fs/promises'
+import { join } from 'path'
 
 const server = createServer(async (req, res) => {
-  //Ігнорування favicon
-  if (req.url === '/favicon.ico') {
-    res.writeHead(204, { 'Content-Type': 'image/x-icon' })
-    res.end()
+  try {
+    //Ігнорування favicon
+    if (req.url === '/favicon.ico') {
+      res.writeHead(204, { 'Content-Type': 'image/x-icon' })
+      res.end()
+      return
+    }
+
+    const rootPath = 'public'
+    const dateUrl = req.url
+    console.log(dateUrl)
+    let data
+
+    switch (dateUrl) {
+      case '/':
+        data = await readFile('about-me.html', 'utf8')
+        break
+
+      case '/coffee':
+        data = await readFile(join(rootPath, 'coffee.html'), 'utf8')
+        break
+
+      case '/music':
+        data = await readFile('music.html', 'utf8')
+        break
+
+      default:
+        res.writeHead(404, { 'Content-Type': 'text/plain' })
+        res.end('Not Found')
+        return
+    }
+    res.writeHead(200, { 'Content-Type': 'text/html' })
+    res.end(data)
+  } catch (err) {
+    res.writeHead(500, { 'Content-Type': 'text/html; charset=utf-8' })
+    res.statusCode = 500
+    res.end('На сервері помилка')
     return
   }
-  //--
-
-  //Обробка url,
-
-  //Перевірка на існування файлу numbers.txt і якщо його не існує - то створюємо
-
-  async function createHTMLFile(filePath, content) {
-    try {
-      await writeFile(filePath, content, 'utf8')
-      console.log(`File ${filePath} created successfully!`)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  //--
-
-  const filePath = 'public'
-  const dateUrl = req.url
-  console.log(dateUrl)
-
-  switch (dateUrl) {
-    case '/':
-      break
-
-    case '/coffee':
-      await createHTMLFile(`${filePath}/coffee.html`, 'Coffee')
-      break
-
-    case '/music':
-      await createHTMLFile(`${filePath}/music.html`, 'Music')
-      break
-
-    default:
-      break
-  }
-
-  // Дописування данних у файл
-  async function appendTextToFile(filePath, text) {
-    try {
-      await appendFile(filePath, text, 'utf8')
-      console.log(`Number appended to ${filePath} successfully!`)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  res.writeHead(200, { 'Content-Type': 'text/plain' })
-  res.end(`Commands:\n /music \n /coffee \n / \n `)
 })
 
 // starts a simple http server locally on port 3000
