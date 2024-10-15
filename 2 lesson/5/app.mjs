@@ -30,6 +30,7 @@ const server = createServer(async (req, res) => {
         return
       }
     }
+
     const currentData = await readAsyncFile(historyFilePath)
     const currentDataObj = JSON.parse(currentData)
 
@@ -51,7 +52,7 @@ const server = createServer(async (req, res) => {
     }
   } catch (error) {
     res.writeHead(500, { 'Content-Type': 'text/plain; charset=utf-8' })
-    res.end('Хиба.\n')
+    res.end('На сервері помилка.\n')
     console.log('Error:', error)
   }
 })

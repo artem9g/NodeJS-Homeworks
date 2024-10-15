@@ -40,7 +40,7 @@ const server = createServer(async (req, res) => {
   } catch (err) {
     res.writeHead(500, { 'Content-Type': 'text/html; charset=utf-8' })
     res.statusCode = 500
-    res.end('На сервері помилка')
+    res.end('На сервері помилка.')
     return
   }
 })
