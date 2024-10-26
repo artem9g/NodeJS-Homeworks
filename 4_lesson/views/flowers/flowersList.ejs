@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Список товарів</title>
+  </head>
+  <body>
+    <hr />
+    <table>
+      <thead style="text-align: left">
+        <th>Flower</th>
+        <th>Amount</th>
+        <th>Price</th>
+        <th></th>
+        <th></th>
+      </thead>
+
+      <%flowers.forEach(product=>{%>
+      <tr>
+        <td><a href="/flowers/<%=product.id%>"> <%=product.title%> </a></td>
+        <td><span><%=product.amount%></span></td>
+        <td><span><%=product.price%></span></td>
+        <td><button>Edit</button></td>
+        <td><button>Delete</button></td>
+      </tr>
+      <%})%>
+    </table>
+    <hr />
+    <a href="/flowers/create"> Додати новий товар</a>
+  </body>
+</html>
