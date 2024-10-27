@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cars List</title>
+    <script src="/javascripts/script.js"></script>
+  </head>
+  <body>
+    <h1>Cars List</h1>
+    <hr />
+    <table>
+      <thead style="text-align: left">
+        <th>Car</th>
+        <th>Amount</th>
+        <th>Price</th>
+        <th></th>
+        <th></th>
+      </thead>
+
+      <hr />
+      <%products.forEach(product=>{%>
+      <tr>
+        <td><a href="/cars/<%=product.id%>"> <%=product.title%> </a></td>
+        <td><span><%=product.amount%></span></td>
+        <td><span><%=product.price%></span></td>
+        <td><button>Edit</button></td>
+        <td><button onclick="deleteProduct(<%= product.id%>)">Delete</button></td>
+      </tr>
+      <%})%>
+    </table>
+    <hr />
+    <a href="/cars/create"> Додати новий товар</a>
+  </body>
+</html>
