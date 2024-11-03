@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Список товарів</title>
+    <link rel="stylesheet" href="/stylesheets/products/list.css" />
+    <link rel="stylesheet" href="/stylesheets/main.css" />
+    <script src="/javascripts/RequestManager.js"></script>
+  </head>
+  <body>
+    <%-include('sections/header.ejs')%>
+    <hr />
+    <h1>Cars List</h1>
+
+    <table>
+      <thead style="text-align: left">
+        <th>Car photo</th>
+        <th>Car model</th>
+        <th>Price ($)</th>
+        <th>License Number</th>
+        <th>Year Of Production</th>
+        <th></th>
+        <th></th>
+      </thead>
+
+      <hr />
+      <%cars.forEach(product=>{%>
+      <tr>
+        <td><img src="<%= product.imgSrc %>" class="prod-image" /></td>
+        <td><a href="/cars/<%=product.id%>"> <%=product.title%> </a></td>
+        <td><span><%=product.price%></span></td>
+        <td><span><%=product.licenseNumber%></span></td>
+        <td><span><%=product.yearProduction%></span></td>
+        <td><a class="button" href="/cars/edit/<%= product.id %>" class="edit-link">Edit</a></td>
+        <td><button class="button" onclick="RequestManager.deleteRequest('/cars', { id:'<%= product.id %>'})">Delete</button></td>
+      </tr>
+      <%})%>
+    </table>
+    <hr />
+    <a class="button" href="/cars/create" style="margin: 0 auto">Add New Car</a>
+    <hr />
+    <%-include('sections/footer.ejs')%>
+  </body>
+</html>

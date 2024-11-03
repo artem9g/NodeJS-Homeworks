@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Page about: <%=car.title%> </title>
+    <link rel="stylesheet" href="/stylesheets/products/detail.css" />
+    <link rel="stylesheet" href="/stylesheets/main.css" />
+  </head>
+  <body>
+     <%-include('sections/header.ejs')%>
+    <hr />
+    <h1>Car: <%=car.title%> </h1>
+    <table> 
+       <thead style="text-align: left">
+        <th>Car photo</th> 
+        <th>Price</th>
+        <th></th>
+        <th></th>
+      </thead>
+
+        <td><img src="<%= car.imgSrc %>" class="prod-image prod-image--detail" /></td>
+        <td><a href="/cars/<%=car.id%>"> </a></td>
+        <td><span><%=car.price%></span></td> 
+      </tr>
+    </table>
+  </body>
+</html>

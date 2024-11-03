@@ -1,4 +1,8 @@
+import { log } from 'console'
 import Car from '../models/Car.mjs'
+import dataFileManager from '../utils/DataFileManager.mjs'
+import fs from 'fs'
+import path from 'path'
 
 class ProductsController {
   static mainProducts(req, res) {
@@ -9,6 +13,7 @@ class ProductsController {
   }
   static productDetail(req, res) {
     const id = req.params.id
+    console.log(id)
     //отримати об"єкт продукта за id
     const product = Car.getCarById(id)
     //відредерити сторінку з інформацією про товар
@@ -33,25 +38,35 @@ class ProductsController {
   }
   static createProduct(req, res) {
     const productData = req.body
-    //productData.imgSrc = `/${req.file.filename}`
+    productData.imgSrc = `/${req.file.filename}`
     Car.addNewCar(productData)
     res.redirect('/cars')
   }
   static updateProduct(req, res) {
     const productData = req.body
-    // if (req.file) {
-    //   productData.imgSrc = `/${req.file.filename}`
-    // }
+    if (req.file) {
+      productData.imgSrc = `/${req.file.filename}`
+    }
+
     Car.updateCar(req.params.id, productData)
     res.redirect('/cars')
   }
+
   static deleteProduct(req, res) {
     const product = Car.getCarById(req.body.id)
-    // if (product.imgSrc) {
-    //   fs.unlinkSync(path.join(req.__dirname, `uploads\\${product.imgSrc}`))
-    // }
+    const filePath = path.join(req.__dirname, 'uploads', product.imgSrc)
+
+    console.log('test--------------------')
+    console.log(req.__dirname)
+    console.log('---')
+    console.log(filePath)
+
+    if (product.imgSrc) {
+      fs.unlinkSync(filePath) // Передаем `filePath` напрямую
+    }
+
     Car.deleteCarById(req.body.id)
-    res.send(200, { success: true })
+    res.status(200).send({ success: true })
     res.redirect('/cars')
   }
 }

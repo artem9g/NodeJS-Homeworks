@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="/stylesheets/products/list.css" />
+    <script src="/javascripts/RequestManager.js"></script>
+    <script>
+      function onFileInput(event) {
+        RequestManager.handleFileSelect(event, '#imgPreview')
+      }
+    </script>
+  </head>
+  <body>
+    <% if (errors) { %>
+    <h1 style="color: red; text-transform: uppercase">Сталися помилка(и)! Дивиться нище:</h1>
+    <% } %> <% if (errors?.length > 0) { %>
+    <ul>
+      <% errors.forEach(function(error) { %>
+      <li><%= error.msg %></li>
+      <% }) %>
+    </ul>
+    <hr />
+    <% } %>
+    <!-- product && product.id  -- додаткова перевірка-коли валідація ререндерить - то є порожний обєкт  і тоді б заміcть айді записується undefined -->
+    <form action="/cars<%= product && product.id ? '/edit/' + product.id : '/create' %>" enctype="multipart/form-data" method="post">
+      <label>
+        Car Brand
+        <input type="text" name="title" value="<%= product ? product.title : '' %>" required />
+      </label>
+
+      <hr />
+      <label>
+        Car Price ($)
+        <input type="number" name="price" value="<%= product ? product.price : '' %>" required />
+      </label>
+      <hr />
+
+      <label>
+        Year Of Production
+        <input type="number" name="yearProduction" value="<%= product ? product.yearProduction : '' %>" required />
+      </label>
+      <hr />
+      <label>
+        License Number
+        <input type="text" name="licenseNumber" value="<%= product ? product.licenseNumber : '' %>" required />
+      </label>
+      <hr />
+      <div class="prod-container">
+        <label> Зображення <input type="file" name="prodImg" accept="image/*" onchange="onFileInput(event)" <%= product ? '' : 'required' %> /> </label>
+        <img
+          src="<%= product && product.imgSrc ? product.imgSrc : '/photo-not-available.jpg' %>"
+          id="imgPreview"
+          alt="Product Image Preview"
+          class="prod-image"
+        />
+      </div>
+      <hr />
+      <button type="submit"><%= product && product.id ? 'Оновити' : 'Створити' %></button>
+    </form>
+  </body>
+</html>

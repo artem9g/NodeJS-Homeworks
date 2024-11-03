@@ -4,23 +4,49 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <!-- <script src="../../public/javascripts/script.js"></script> -->
+    <link rel="stylesheet" href="/stylesheets/products/list.css" />
+    <script src="/javascripts/RequestManager.js"></script>
+    <script>
+      function onFileInput(event) {
+        RequestManager.handleFileSelect(event, '#imgPreview')
+      }
+    </script>
   </head>
   <body>
-    <form action="/cars" method="post">
+    <form action="/cars<%= product ? '/' + product.id : '' %>" enctype="multipart/form-data" method="post">
       <label>
-        Назва товару
-        <input type="text" name="title" />
+        Car Brand
+        <input type="text" name="title" value="<%= product ? product.title : '' %>" required />
       </label>
+
+      <hr />
       <label>
-        Кількість товару
-        <input type="number" name="amount" />
+        Car Price ($)
+        <input type="number" name="price" value="<%= product ? product.price : '' %>" required />
       </label>
+      <hr />
+
       <label>
-        Ціна одиниці товару
-        <input type="number" name="price" />
+        Year Of Production
+        <input type="number" name="yearProduction" value="<%= product ? product.yearProduction : '' %>" required />
       </label>
-      <button type="submit">Створити</button>
+      <hr />
+      <label>
+        License Number
+        <input type="number" name="licenseNumber" value="<%= product ? product.licenseNumber : '' %>" required />
+      </label>
+      <hr />
+      <div class="prod-container">
+        <label> Зображення <input type="file" name="prodImg" accept="image/*" onchange="onFileInput(event)" <%= product ? '' : 'required' %> /> </label>
+        <img
+          src="<%= product && product.imgSrc ? product.imgSrc : '/photo-not-available.jpg' %>"
+          id="imgPreview"
+          alt="Product Image Preview"
+          class="prod-image"
+        />
+      </div>
+      <hr />
+      <button type="submit"><%= product ? 'Оновити' : 'Створити' %></button>
     </form>
   </body>
 </html>
