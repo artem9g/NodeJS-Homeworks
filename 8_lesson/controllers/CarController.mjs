@@ -1,5 +1,4 @@
 import { error, log } from 'console'
-import Car from '../models/Car.mjs'
 import CarsDBService from '../models/car/CarDBservice.mjs'
 
 import { validationResult } from 'express-validator'
@@ -24,7 +23,7 @@ class CarController {
     //отримати об"єкт продукта за id
     const car = await CarsDBService.getById(id)
     //відредерити сторінку з інформацією про товар\
-    console.log('відредерити сторінку з інформацією про car');
+    console.log('відредерити сторінку з інформацією про car')
     console.log(car)
     res.render('cars/carDetail', {
       car,
@@ -46,7 +45,7 @@ class CarController {
     const car = await CarsDBService.getById(id)
     //відредерити сторінку з формою
     res.render('cars/carForm', {
-      product:car,
+      product: car,
       errors: null,
       // errors: [],
     })
@@ -74,10 +73,10 @@ class CarController {
     }
 
     try {
-      const { title, price, licenseNumber, yearProduction, imgSrc } = req.body
+      const { title, price, licenseNumber, yearProduction, imgSrc, mark } = req.body
       console.log('====>>> req.body')
       console.log(req.body)
-      await CarsDBService.create({ title, price, licenseNumber, yearProduction, imgSrc })
+      await CarsDBService.create({ title, price, licenseNumber, yearProduction, imgSrc, mark })
     } catch (error) {}
 
     res.redirect('/cars')
@@ -108,14 +107,13 @@ class CarController {
       }
     }
 
-       try {
+    try {
       const { title, price, licenseNumber, yearProduction, imgSrc } = req.body
       console.log('====>>> req.body')
       console.log(req.body)
-      // Оновлюємо дані про car в базі даних 
-      await CarsDBService.update(req.params.id,{ title, price, licenseNumber, yearProduction, imgSrc })
+      // Оновлюємо дані про car в базі даних
+      await CarsDBService.update(req.params.id, { title, price, licenseNumber, yearProduction, imgSrc })
     } catch (error) {}
-
 
     res.redirect('/cars')
   }

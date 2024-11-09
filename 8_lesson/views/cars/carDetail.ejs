@@ -3,18 +3,19 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Page about: <%=car.title%> </title>
+    <title>Page about: <%=car.title%></title>
     <link rel="stylesheet" href="/stylesheets/products/detail.css" />
     <link rel="stylesheet" href="/stylesheets/main.css" />
   </head>
   <body>
-     <%-include('sections/header.ejs')%>
-    <hr /> 
-    <h1>Car: <%=car.title%> </h1>
-    
-     <table>
+    <%-include('sections/header.ejs')%>
+    <hr />
+    <h1>Car: <%=car.title%></h1>
+
+    <table>
       <thead style="text-align: left">
-        <th>Car photo</th> 
+        <th>Car photo</th>
+        <th>Car mark</th>
         <th>Price ($)</th>
         <th>License Number</th>
         <th>Year Of Production</th>
@@ -23,13 +24,13 @@
       </thead>
       <hr />
       <tr>
-        <td><img src="<%= car.imgSrc %>" class="prod-image" /></td> 
+        <td><img src="<%= car.imgSrc %>" class="prod-image" /></td>
+        <td><span><%=car.mark? car.mark.title:'-'%> </span></td>
         <td><span><%=car.price%></span></td>
         <td><span><%=car.licenseNumber%></span></td>
         <td><span><%=car.yearProduction%></span></td>
         <td><a class="button" href="/cars/edit/<%= car.id %>" class="edit-link">Edit</a></td>
       </tr>
     </table>
-
   </body>
 </html>
