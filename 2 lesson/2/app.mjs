@@ -40,6 +40,7 @@ const server = createServer(async (req, res) => {
     const dateArr = dateUrl.slice(1).split('/')
     //   console.log(dateArr)
     let result
+
     switch (dateArr[0]) {
       case 'save_num':
         const currentNumber = Number(dateArr[1])
@@ -123,6 +124,7 @@ const server = createServer(async (req, res) => {
     return
   }
 })
+
 // starts a simple http server locally on port 3000
 server.listen(3000, '127.0.0.1', () => {
   console.log('Listening on 127.0.0.1:3000')

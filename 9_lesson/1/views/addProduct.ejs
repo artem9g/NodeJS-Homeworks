@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+  </head>
+  <body>
+    <%-include('sections/header.ejs')%>
+    <main class="container">
+      <h1>ADD PRODUCT</h1>
+
+      <form class="form-product" action="/addproduct" method="post">
+        <label>
+          title:
+          <input type="text" name="title" value=" " />
+        </label>
+
+        <label>
+          price ($):
+          <input type="number" name="price" value=" >" />
+        </label>
+
+        <label>
+          amount:
+          <input type="number" name="amount" value=" " />
+        </label>
+
+        <button class="button" type="submit">Create Product</button>
+      </form>
+    </main>
+    <%-include('sections/footer.ejs')%>
+  </body>
+</html>

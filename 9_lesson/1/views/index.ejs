@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+  </head>
+  <body>
+    <%-include('sections/header.ejs')%>
+    <main class="home container">
+      <h1><%= title %></h1>
+      <h2>Домашне завдання №9.1</h2>
+      <h3>Задача 1. Розробити додаток для операцій з товарами (назва, ціна, кількість) з такими маршрутами:</h3>
+      <ul class="home__list">
+        <li class="home__item"><a href="/products"> /products </a> <span>– відображаємо список товарів</span></li>
+        <li class="home__item">
+          <a href="/login">/login</a>
+          <span>
+            – при авторизації додаємо до сесії ім’я користувача і переходимо до сторінки «products» (при цьому товари відображаються у порядку зростання ціни)
+          </span>
+        </li>
+        <li class="home__item">
+          <a href="/addProduct">/addProduct</a>
+          <span>– додаємо товар і переходимо на сторінку «products» (при цьому товари відображаються у порядку спадання ціни)</span>
+        </li>
+      </ul>
+      <p>Подумайте як передати інформацію про сортування товарів при переході на сторінку «/products»</p>
+    </main>
+    <%-include('sections/footer.ejs')%>
+  </body>
+</html>

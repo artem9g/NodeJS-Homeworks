@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+  </head>
+  <body>
+    <%-include('sections/header.ejs')%>
+    <main class="home container">
+      <h1><%= title %></h1>
+      <div class="show-products">
+        <div class="show-products__list">
+          <% products.forEach(product => { %>
+          <div class="show-products__item">
+              <div class=" "><%=product.title %></div>
+              <div class=" "><%=product.price %></div>
+              <div class=" "><%=product.amount %></div>
+            </div>
+                <% }); %>
+        </div>
+      </div> 
+
+    <%-include('sections/footer.ejs')%>
+  </body>
+</html>
